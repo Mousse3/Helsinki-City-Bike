@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+
+namespace HBike.Models;
 
 public class HBikeContext : DbContext
 {
@@ -13,6 +13,8 @@ public class HBikeContext : DbContext
         var path = Environment.GetFolderPath(folder);
         DbPath = System.IO.Path.Join(path, "HBike.db");
     }
+
+    public DbSet<TestItem> TestItems { get; set; } = null!;
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
