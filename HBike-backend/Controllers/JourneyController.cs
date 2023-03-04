@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HBike.Models;
+using AutoMapper;
+using HBike.DTOs;
 
 namespace HBike_backend.Controllers
 {
@@ -13,22 +15,27 @@ namespace HBike_backend.Controllers
     [ApiController]
     public class JourneyController : ControllerBase
     {
+        private IMapper Mapper { get; }
         private readonly HBikeContext _context;
 
-        public JourneyController(HBikeContext context)
+        public JourneyController(HBikeContext context, IMapper mapper)
         {
             _context = context;
+            this.Mapper = mapper;
         }
 
         // GET: api/Journey
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Journey>>> GetJourneys()
+        public async Task<ActionResult<IEnumerable<JourneyDTO>>> GetJourneys()
         {
             if (_context.Journeys == null)
             {
                 return NotFound();
             }
-            return await _context.Journeys.ToListAsync();
+
+            return await _context.Journeys
+                .Select(j => Mapper.Map<JourneyDTO>(j))
+                .ToListAsync();
         }
 
         // GET: api/Journey/5
@@ -93,16 +100,18 @@ namespace HBike_backend.Controllers
         // POST: api/Journey
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Journey>> PostJourney(Journey journey)
+        public async Task<ActionResult<Journey>> PostJourney(JourneyDTO journeyDTO)
         {
             if (_context.Journeys == null)
             {
                 return Problem("Entity set 'HBikeContext.Journeys'  is null.");
             }
-            _context.Journeys.Add(journey);
+
+            //var depStation = await _context.Stations.FindAsync(journeyDTO.DepartureStation.StationId);
+            var addedJourney = _context.Journeys.Add(Mapper.Map<Journey>(journeyDTO));
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetJourney", new { id = journey.JourneyId }, journey);
+            return CreatedAtAction("GetJourney", new { id = addedJourney.Entity.JourneyId }, journeyDTO);
         }
 
         // DELETE: api/Journey/5

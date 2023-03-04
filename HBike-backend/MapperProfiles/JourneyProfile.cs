@@ -8,7 +8,12 @@ namespace HBike.Profiles
     {
         public JourneyProfile()
         {
-            // CreateMap<JourneyDTO, Journey>()
+            CreateMap<JourneyDTO, Journey>();
+            CreateMap<Journey, JourneyDTO>();
+            // CreateMap<JourneyNoStationsDTO, Journey>();
+            // .ForMember(dest => dest.DepartureStation, opt => opt.Ignore())
+            // .ForMember(dest => dest.ReturnStation, opt => opt.Ignore());
+            // CreateMap<Journey, JourneyNoStationsDTO>();
         }
     }
 }

@@ -23,25 +23,15 @@ namespace HBikebackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Departure")
+                    b.Property<DateTime>("DepartureTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("DepartureStationStationId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("Return")
+                    b.Property<DateTime?>("ReturnTime")
                         .HasColumnType("TEXT");
-
-                    b.Property<long>("ReturnStationStationId")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("JourneyId");
 
-                    b.HasIndex("DepartureStationStationId");
-
-                    b.HasIndex("ReturnStationStationId");
-
-                    b.ToTable("Journeys", (string)null);
+                    b.ToTable("Journeys");
                 });
 
             modelBuilder.Entity("HBike.Models.Station", b =>
@@ -56,7 +46,7 @@ namespace HBikebackend.Migrations
 
                     b.HasKey("StationId");
 
-                    b.ToTable("Stations", (string)null);
+                    b.ToTable("Stations");
                 });
 
             modelBuilder.Entity("HBike.Models.TestItem", b =>
@@ -73,33 +63,7 @@ namespace HBikebackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestItems", (string)null);
-                });
-
-            modelBuilder.Entity("HBike.Models.Journey", b =>
-                {
-                    b.HasOne("HBike.Models.Station", "DepartureStation")
-                        .WithMany("Departures")
-                        .HasForeignKey("DepartureStationStationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HBike.Models.Station", "ReturnStation")
-                        .WithMany("Returns")
-                        .HasForeignKey("ReturnStationStationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DepartureStation");
-
-                    b.Navigation("ReturnStation");
-                });
-
-            modelBuilder.Entity("HBike.Models.Station", b =>
-                {
-                    b.Navigation("Departures");
-
-                    b.Navigation("Returns");
+                    b.ToTable("TestItems");
                 });
 #pragma warning restore 612, 618
         }

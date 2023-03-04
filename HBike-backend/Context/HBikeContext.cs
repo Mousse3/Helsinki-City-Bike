@@ -25,17 +25,20 @@ public class HBikeContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Journey>()
-                    .HasOne(j => j.DepartureStation)
-                    .WithMany(s => s.Departures);
-
-        modelBuilder.Entity<Journey>()
-                    .HasOne(j => j.ReturnStation)
-                    .WithMany(s => s.Returns);
+        // modelBuilder.Entity<Journey>()
+        //             .HasOne(j => j.DepartureStation)
+        //             .WithMany(s => s.Departures);
 
         // modelBuilder.Entity<Journey>()
-        //             .HasOne(m => m.ReturnStation)
-        //             .WithMany()
-        //             .HasForeignKey(m => m.ReturnStationId);
+        //             .HasOne(j => j.ReturnStation)
+        //             .WithMany(s => s.Returns);
+
+        // modelBuilder.Entity<Station>()
+        //             .HasMany(s => s.Departures)
+        //             .WithOne(j => j.DepartureStation);
+
+        // modelBuilder.Entity<Station>()
+        //             .HasMany(s => s.Returns)
+        //             .WithOne(j => j.ReturnStation);
     }
 }
