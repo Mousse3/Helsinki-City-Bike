@@ -3,6 +3,7 @@ using System;
 using HBike.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HBikebackend.Migrations
 {
     [DbContext(typeof(HBikeContext))]
-    partial class HBikeContextModelSnapshot : ModelSnapshot
+    [Migration("20230303213759_journey_station")]
+    partial class journeystation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
@@ -41,7 +44,7 @@ namespace HBikebackend.Migrations
 
                     b.HasIndex("ReturnStationStationId");
 
-                    b.ToTable("Journeys", (string)null);
+                    b.ToTable("Journeys");
                 });
 
             modelBuilder.Entity("HBike.Models.Station", b =>
@@ -56,7 +59,7 @@ namespace HBikebackend.Migrations
 
                     b.HasKey("StationId");
 
-                    b.ToTable("Stations", (string)null);
+                    b.ToTable("Stations");
                 });
 
             modelBuilder.Entity("HBike.Models.TestItem", b =>
@@ -73,7 +76,7 @@ namespace HBikebackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestItems", (string)null);
+                    b.ToTable("TestItems");
                 });
 
             modelBuilder.Entity("HBike.Models.Journey", b =>
