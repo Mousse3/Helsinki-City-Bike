@@ -41,7 +41,7 @@ namespace HBikebackend.Migrations
 
                     b.HasIndex("ReturnStationId");
 
-                    b.ToTable("Journeys");
+                    b.ToTable("Journeys", (string)null);
                 });
 
             modelBuilder.Entity("HBike.Models.Station", b =>
@@ -56,7 +56,7 @@ namespace HBikebackend.Migrations
 
                     b.HasKey("StationId");
 
-                    b.ToTable("Stations");
+                    b.ToTable("Stations", (string)null);
                 });
 
             modelBuilder.Entity("HBike.Models.TestItem", b =>
@@ -73,7 +73,7 @@ namespace HBikebackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestItems");
+                    b.ToTable("TestItems", (string)null);
                 });
 
             modelBuilder.Entity("HBike.Models.Journey", b =>
